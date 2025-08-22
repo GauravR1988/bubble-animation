@@ -3,8 +3,8 @@
 <head>
     <style>
         .container {
-            width: 500px;
-            height: 200px;
+            width: 560px;
+            height: 272px;
             position: relative;
             background: linear-gradient(135deg, #303840, #718792);
             display: flex;
@@ -16,16 +16,16 @@
 
         .section {
             position: relative;
-            width: 150px;
-            height: 200px;
+            width: 180px;  /* Increased from 150px */
+            height: 272px; /* Increased from 200px */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .main-bubble {
-            width: 80px;
-            height: 80px;
+            width: 100px;  /* Increased from 80px */
+            height: 100px; /* Increased from 80px */
             background: radial-gradient(circle at 30% 30%, 
                 rgba(255,255,255,0.9),
                 rgba(0,255,255,0.4),
@@ -33,9 +33,9 @@
             border-radius: 50%;
             position: relative;
             box-shadow: 
-                inset 0 0 20px rgba(255,255,255,0.8),
-                0 0 15px rgba(0,255,255,0.5),
-                0 0 30px rgba(0,200,255,0.3);
+                inset 0 0 25px rgba(255,255,255,0.8),
+                0 0 20px rgba(0,255,255,0.5),
+                0 0 35px rgba(0,200,255,0.3);
             cursor: pointer;
             z-index: 2;
             animation: pulse 2s infinite;
@@ -43,17 +43,17 @@
 
         @keyframes pulse {
             0% { box-shadow: 
-                inset 0 0 20px rgba(255,255,255,0.8),
-                0 0 15px rgba(0,255,255,0.5),
-                0 0 30px rgba(0,200,255,0.3); }
+                inset 0 0 25px rgba(255,255,255,0.8),
+                0 0 20px rgba(0,255,255,0.5),
+                0 0 35px rgba(0,200,255,0.3); }
             50% { box-shadow: 
-                inset 0 0 30px rgba(255,255,255,0.9),
-                0 0 25px rgba(0,255,255,0.7),
-                0 0 40px rgba(0,200,255,0.5); }
+                inset 0 0 35px rgba(255,255,255,0.9),
+                0 0 30px rgba(0,255,255,0.7),
+                0 0 45px rgba(0,200,255,0.5); }
             100% { box-shadow: 
-                inset 0 0 20px rgba(255,255,255,0.8),
-                0 0 15px rgba(0,255,255,0.5),
-                0 0 30px rgba(0,200,255,0.3); }
+                inset 0 0 25px rgba(255,255,255,0.8),
+                0 0 20px rgba(0,255,255,0.5),
+                0 0 35px rgba(0,200,255,0.3); }
         }
 
         .bubble-content {
@@ -69,29 +69,29 @@
         }
 
         .percentage {
-            font-size: 1.4em;
+            font-size: 1.8em;  /* Increased from 1.4em */
             font-weight: 800;
             margin: 0;
             letter-spacing: 1px;
         }
 
         .title {
-            font-size: 0.9em;
+            font-size: 1.1em;  /* Increased from 0.9em */
             font-weight: 600;
             margin: 2px 0;
             text-transform: uppercase;
         }
 
         .info-bubble {
-            width: 45px;
-            height: 45px;
+            width: 55px;   /* Increased from 45px */
+            height: 55px;  /* Increased from 45px */
             background: linear-gradient(135deg, 
                 rgba(192,192,192,0.9),
                 rgba(128,128,128,0.8));
             border-radius: 50%;
             position: absolute;
             color: white;
-            font-size: 0.7em;
+            font-size: 0.85em;  /* Increased from 0.7em */
             font-weight: 600;
             display: none;
             align-items: center;
@@ -113,19 +113,19 @@
 
         @keyframes bubbleUp {
             0% {
-                transform: translateY(200px) scale(0.8);
+                transform: translateY(272px) scale(0.8);  /* Adjusted from 200px */
                 opacity: 0;
             }
             20% {
                 opacity: 1;
-                transform: translateY(150px) scale(1);
+                transform: translateY(200px) scale(1);    /* Adjusted */
             }
             80% {
                 opacity: 1;
-                transform: translateY(50px) scale(1);
+                transform: translateY(70px) scale(1);     /* Adjusted */
             }
             100% {
-                transform: translateY(-100px) scale(0.8);
+                transform: translateY(-120px) scale(0.8); /* Adjusted */
                 opacity: 0;
             }
         }
@@ -133,7 +133,6 @@
         .section:hover .info-bubble:nth-child(2) { animation-delay: 0.7s; }
         .section:hover .info-bubble:nth-child(3) { animation-delay: 1.4s; }
 
-        /* Add metallic shine effect */
         .container:before {
             content: '';
             position: absolute;
