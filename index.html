@@ -2,75 +2,7 @@
 <html>
 <head>
     <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-            color: white;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 500px;
-            height: 200px;
-            padding: 10px;
-            margin: 0 auto;
-        }
-
-        .emission-section {
-            text-align: center;
-            width: 150px;
-            height: 180px;
-            position: relative;
-        }
-
-        .bubble {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 5px;
-            border-radius: 50%;
-            position: relative;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(128,128,128,0.8));
-            box-shadow: 
-                inset 0 0 20px rgba(255,255,255,0.5),
-                0 0 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(3deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-
-        .bubble:hover {
-            transform: scale(1.1);
-        }
-
-        .bubble-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-
-        .percentage {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .title {
-            font-size: 0.8em;
-            margin: 2px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
+        /* Previous styles remain the same until .details */
 
         .details {
             background: rgba(255,255,255,0.1);
@@ -81,8 +13,9 @@
             text-align: left;
             box-shadow: 0 2px 3px rgba(0,0,0,0.1);
             height: 80px;
-            overflow-y: auto;
+            overflow-y: hidden;
             font-size: 0.7em;
+            position: relative;
         }
 
         .details ul {
@@ -95,13 +28,78 @@
             margin: 5px 0;
             padding-left: 10px;
             position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s forwards;
+        }
+
+        .details:hover li {
+            animation: pulse 2s infinite;
         }
 
         .details li:before {
-            content: "•";
+            content: "→";
             position: absolute;
             left: 0;
             color: #4CAF50;
+            animation: glow 1.5s infinite;
+        }
+
+        /* Text animation keyframes */
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { color: #4CAF50; }
+            50% { color: #81C784; }
+            100% { color: #4CAF50; }
+        }
+
+        /* Stagger the animations for list items */
+        .details li:nth-child(1) { animation-delay: 0.1s; }
+        .details li:nth-child(2) { animation-delay: 0.3s; }
+        .details li:nth-child(3) { animation-delay: 0.5s; }
+
+        /* Add gradient overlay */
+        .details:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(transparent, rgba(26,26,26,0.9));
+            pointer-events: none;
+        }
+
+        /* Highlight effect on hover */
+        .details li:hover {
+            color: #81C784;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        /* Typing animation for important numbers */
+        .highlight {
+            color: #81C784;
+            display: inline-block;
+            animation: typing 1s steps(10) infinite;
+        }
+
+        @keyframes typing {
+            0% { border-right: 2px solid transparent; }
+            50% { border-right: 2px solid #81C784; }
+            100% { border-right: 2px solid transparent; }
         }
     </style>
 </head>
@@ -116,9 +114,9 @@
             </div>
             <div class="details">
                 <ul>
-                    <li>Idling increases fuel use</li>
-                    <li>Stop-go: +30% CO₂</li>
-                    <li>Peak-hour impact high</li>
+                    <li>Idling → <span class="highlight">↑ Fuel Use</span></li>
+                    <li>Stop-go: <span class="highlight">+30% CO₂</span></li>
+                    <li>Peak Impact <span class="highlight">Critical</span></li>
                 </ul>
             </div>
         </div>
@@ -132,9 +130,9 @@
             </div>
             <div class="details">
                 <ul>
-                    <li>Vans: 3-4x more CO₂</li>
-                    <li>Fleet mix crucial</li>
-                    <li>EVs reduce by 59%</li>
+                    <li>Vans: <span class="highlight">3-4x CO₂</span></li>
+                    <li>Fleet Mix <span class="highlight">Impact</span></li>
+                    <li>EVs: <span class="highlight">-59%</span></li>
                 </ul>
             </div>
         </div>
@@ -148,9 +146,9 @@
             </div>
             <div class="details">
                 <ul>
-                    <li>Slower deliveries</li>
-                    <li>Higher fuel usage</li>
-                    <li>+20-25% CO₂</li>
+                    <li>Delays <span class="highlight">↑ Time</span></li>
+                    <li>Fuel Use <span class="highlight">↑↑</span></li>
+                    <li><span class="highlight">+25%</span> CO₂</li>
                 </ul>
             </div>
         </div>
