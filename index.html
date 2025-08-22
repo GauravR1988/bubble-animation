@@ -16,16 +16,16 @@
 
         .section {
             position: relative;
-            width: 180px;  /* Increased from 150px */
-            height: 272px; /* Increased from 200px */
+            width: 180px;
+            height: 272px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .main-bubble {
-            width: 100px;  /* Increased from 80px */
-            height: 100px; /* Increased from 80px */
+            width: 100px;
+            height: 100px;
             background: radial-gradient(circle at 30% 30%, 
                 rgba(255,255,255,0.9),
                 rgba(0,255,255,0.4),
@@ -38,22 +38,57 @@
                 0 0 35px rgba(0,200,255,0.3);
             cursor: pointer;
             z-index: 2;
-            animation: pulse 2s infinite;
+            animation: 
+                pulse 2s infinite,
+                float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .section:nth-child(1) .main-bubble {
+            animation-delay: 0s, 0s;
+        }
+
+        .section:nth-child(2) .main-bubble {
+            animation-delay: 0.3s, 1s;
+        }
+
+        .section:nth-child(3) .main-bubble {
+            animation-delay: 0.6s, 2s;
         }
 
         @keyframes pulse {
-            0% { box-shadow: 
-                inset 0 0 25px rgba(255,255,255,0.8),
-                0 0 20px rgba(0,255,255,0.5),
-                0 0 35px rgba(0,200,255,0.3); }
-            50% { box-shadow: 
-                inset 0 0 35px rgba(255,255,255,0.9),
-                0 0 30px rgba(0,255,255,0.7),
-                0 0 45px rgba(0,200,255,0.5); }
-            100% { box-shadow: 
-                inset 0 0 25px rgba(255,255,255,0.8),
-                0 0 20px rgba(0,255,255,0.5),
-                0 0 35px rgba(0,200,255,0.3); }
+            0% { 
+                box-shadow: 
+                    inset 0 0 25px rgba(255,255,255,0.8),
+                    0 0 20px rgba(0,255,255,0.5),
+                    0 0 35px rgba(0,200,255,0.3); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 
+                    inset 0 0 35px rgba(255,255,255,0.9),
+                    0 0 30px rgba(0,255,255,0.7),
+                    0 0 45px rgba(0,200,255,0.5);
+                transform: scale(1.05);
+            }
+            100% { 
+                box-shadow: 
+                    inset 0 0 25px rgba(255,255,255,0.8),
+                    0 0 20px rgba(0,255,255,0.5),
+                    0 0 35px rgba(0,200,255,0.3);
+                transform: scale(1);
+            }
         }
 
         .bubble-content {
@@ -69,29 +104,29 @@
         }
 
         .percentage {
-            font-size: 1.8em;  /* Increased from 1.4em */
+            font-size: 1.8em;
             font-weight: 800;
             margin: 0;
             letter-spacing: 1px;
         }
 
         .title {
-            font-size: 1.1em;  /* Increased from 0.9em */
+            font-size: 1.1em;
             font-weight: 600;
             margin: 2px 0;
             text-transform: uppercase;
         }
 
         .info-bubble {
-            width: 55px;   /* Increased from 45px */
-            height: 55px;  /* Increased from 45px */
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, 
                 rgba(192,192,192,0.9),
                 rgba(128,128,128,0.8));
             border-radius: 50%;
             position: absolute;
             color: white;
-            font-size: 0.85em;  /* Increased from 0.7em */
+            font-size: 0.85em;
             font-weight: 600;
             display: none;
             align-items: center;
@@ -113,19 +148,19 @@
 
         @keyframes bubbleUp {
             0% {
-                transform: translateY(272px) scale(0.8);  /* Adjusted from 200px */
+                transform: translateY(272px) scale(0.8);
                 opacity: 0;
             }
             20% {
                 opacity: 1;
-                transform: translateY(200px) scale(1);    /* Adjusted */
+                transform: translateY(200px) scale(1);
             }
             80% {
                 opacity: 1;
-                transform: translateY(70px) scale(1);     /* Adjusted */
+                transform: translateY(70px) scale(1);
             }
             100% {
-                transform: translateY(-120px) scale(0.8); /* Adjusted */
+                transform: translateY(-120px) scale(0.8);
                 opacity: 0;
             }
         }
