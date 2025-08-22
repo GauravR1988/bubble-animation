@@ -6,12 +6,24 @@
     width: 560px;
     height: 272px;
     position: relative;
-    background: linear-gradient(135deg, #303840, #718792);
+    background: linear-gradient(135deg, #1a2f1a, #2c4c2c);
     display: flex;
     justify-content: space-around;
     align-items: center;
     overflow: hidden;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 50px rgba(0,255,0,0.1);
+    border-radius: 15px;
+}
+
+.header {
+    position: absolute;
+    top: -40px;
+    width: 100%;
+    text-align: center;
+    color: #2c4c2c;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
 }
 
 .section {
@@ -28,14 +40,14 @@
     height: 100px;
     background: radial-gradient(circle at 30% 30%, 
         rgba(255,255,255,0.9),
-        rgba(0,255,255,0.4),
-        rgba(0,200,255,0.6));
+        rgba(144,238,144,0.4),
+        rgba(0,128,0,0.6));
     border-radius: 50%;
     position: relative;
     box-shadow: 
         inset 0 0 25px rgba(255,255,255,0.8),
-        0 0 20px rgba(0,255,255,0.5),
-        0 0 35px rgba(0,200,255,0.3);
+        0 0 20px rgba(144,238,144,0.5),
+        0 0 35px rgba(0,128,0,0.3);
     cursor: pointer;
     z-index: 2;
     animation: 
@@ -71,22 +83,22 @@
     0% { 
         box-shadow: 
             inset 0 0 25px rgba(255,255,255,0.8),
-            0 0 20px rgba(0,255,255,0.5),
-            0 0 35px rgba(0,200,255,0.3); 
+            0 0 20px rgba(144,238,144,0.5),
+            0 0 35px rgba(0,128,0,0.3); 
         transform: scale(1);
     }
     50% { 
         box-shadow: 
             inset 0 0 35px rgba(255,255,255,0.9),
-            0 0 30px rgba(0,255,255,0.7),
-            0 0 45px rgba(0,200,255,0.5);
+            0 0 30px rgba(144,238,144,0.7),
+            0 0 45px rgba(0,128,0,0.5);
         transform: scale(1.05);
     }
     100% { 
         box-shadow: 
             inset 0 0 25px rgba(255,255,255,0.8),
-            0 0 20px rgba(0,255,255,0.5),
-            0 0 35px rgba(0,200,255,0.3);
+            0 0 20px rgba(144,238,144,0.5),
+            0 0 35px rgba(0,128,0,0.3);
         transform: scale(1);
     }
 }
@@ -99,8 +111,8 @@
     color: white;
     text-align: center;
     text-shadow: 
-        0 0 5px rgba(0,255,255,0.8),
-        0 0 10px rgba(0,200,255,0.5);
+        0 0 5px rgba(0,128,0,0.8),
+        0 0 10px rgba(0,128,0,0.5);
 }
 
 .percentage {
@@ -121,8 +133,8 @@
     width: 55px;
     height: 55px;
     background: linear-gradient(135deg, 
-        rgba(192,192,192,0.9),
-        rgba(128,128,128,0.8));
+        rgba(144,238,144,0.9),
+        rgba(0,128,0,0.8));
     border-radius: 50%;
     position: absolute;
     color: white;
@@ -137,10 +149,10 @@
     z-index: 1;
     box-shadow: 
         inset 0 0 10px rgba(255,255,255,0.5),
-        0 0 10px rgba(0,0,0,0.3);
+        0 0 10px rgba(0,128,0,0.3);
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
-
+<style>
 .section:hover .info-bubble {
     display: flex;
     animation: bubbleUp 5s ease-out forwards;
@@ -178,7 +190,7 @@
     background: linear-gradient(
         to right,
         transparent,
-        rgba(255,255,255,0.1),
+        rgba(144,238,144,0.1),
         transparent
     );
     transform: skewX(-15deg);
@@ -193,45 +205,45 @@
 </style>
 </head>
 <body>
-<div class="container">
-    <!-- Vehicle Section -->
-    <div class="section">
-        <div class="main-bubble">
-            <div class="bubble-content">
-                <p class="percentage">40%</p>
-                <p class="title">Vehicle</p>
+    <div class="container">
+        <!-- Vehicle Section -->
+        <div class="section">
+            <div class="main-bubble">
+                <div class="bubble-content">
+                    <p class="percentage">40%</p>
+                    <p class="title">Vehicle</p>
+                </div>
             </div>
+            <div class="info-bubble" style="left: 20%">3-4x<br>CO₂</div>
+            <div class="info-bubble" style="left: 50%">Fleet<br>Mix</div>
+            <div class="info-bubble" style="left: 80%">EV<br>-59%</div>
         </div>
-        <div class="info-bubble" style="left: 20%">3-4x<br>CO₂</div>
-        <div class="info-bubble" style="left: 50%">Fleet<br>Mix</div>
-        <div class="info-bubble" style="left: 80%">EV<br>-59%</div>
-    </div>
 
-    <!-- Traffic Section -->
-    <div class="section">
-        <div class="main-bubble">
-            <div class="bubble-content">
-                <p class="percentage">35%</p>
-                <p class="title">Traffic</p>
+        <!-- Traffic Section -->
+        <div class="section">
+            <div class="main-bubble">
+                <div class="bubble-content">
+                    <p class="percentage">35%</p>
+                    <p class="title">Traffic</p>
+                </div>
             </div>
+            <div class="info-bubble" style="left: 20%">Idle<br>+30% CO₂</div>
+            <div class="info-bubble" style="left: 50%">Stop-&-Go<br>Impact</div>
+            <div class="info-bubble" style="left: 80%">Peak<br>Hours</div>
         </div>
-        <div class="info-bubble" style="left: 20%">Idle<br>+30% CO₂</div>
-        <div class="info-bubble" style="left: 50%">Stop-&-Go<br>Impact</div>
-        <div class="info-bubble" style="left: 80%">Peak<br>Hours</div>
-    </div>
 
-    <!-- Weather Section -->
-    <div class="section">
-        <div class="main-bubble">
-            <div class="bubble-content">
-                <p class="percentage">25%</p>
-                <p class="title">Weather</p>
+        <!-- Weather Section -->
+        <div class="section">
+            <div class="main-bubble">
+                <div class="bubble-content">
+                    <p class="percentage">25%</p>
+                    <p class="title">Weather</p>
+                </div>
             </div>
+            <div class="info-bubble" style="left: 20%">Longer<br>Delays</div>
+            <div class="info-bubble" style="left: 50%">High<br>Fuel</div>
+            <div class="info-bubble" style="left: 80%">+25%<br>CO₂</div>
         </div>
-        <div class="info-bubble" style="left: 20%">Longer<br>Delays</div>
-        <div class="info-bubble" style="left: 50%">High<br>Fuel</div>
-        <div class="info-bubble" style="left: 80%">+25%<br>CO₂</div>
     </div>
-</div>
 </body>
 </html>
