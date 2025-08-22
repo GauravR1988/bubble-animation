@@ -2,108 +2,154 @@
 <html>
 <head>
     <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+        }
+
         .container {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            height: 100vh;
-            background: #f0f0f0;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
-        .bubble {
-            position: relative;
-            border-radius: 50%;
+
+        .emission-section {
+            text-align: center;
             margin: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            width: 300px;
         }
-        
+
+        .bubble {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(128,128,128,0.8));
+            box-shadow: 
+                inset 0 0 50px rgba(255,255,255,0.5),
+                0 0 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+        }
+
         .bubble-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            font-family: Arial, sans-serif;
+            width: 100%;
         }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 0.7; }
+
+        .percentage {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
-        .info-panel {
-            display: none;
-            position: absolute;
-            background: white;
+
+        .title {
+            font-size: 1.2em;
+            margin: 5px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .details {
+            background: rgba(255,255,255,0.1);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            max-width: 300px;
+            backdrop-filter: blur(5px);
+            margin-top: 20px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .details ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .details li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="bubble" id="traffic" style="width: 150px; height: 150px; background: rgba(128,128,128,0.8);">
-            <div class="bubble-content">
-                <h3>Traffic</h3>
-                <p>30% CO₂</p>
+        <div class="emission-section">
+            <div class="bubble" style="animation-delay: 0s;">
+                <div class="bubble-content">
+                    <p class="percentage">35%</p>
+                    <p class="title">Traffic Impact</p>
+                </div>
+            </div>
+            <div class="details">
+                <ul>
+                    <li>Idling in congestion increases fuel consumption</li>
+                    <li>Stop-and-go patterns emit up to 30% more CO₂</li>
+                    <li>Peak-hour deliveries cause disproportionate impact</li>
+                </ul>
             </div>
         </div>
-        
-        <div class="bubble" id="vehicle" style="width: 180px; height: 180px; background: rgba(128,128,128,0.9);">
-            <div class="bubble-content">
-                <h3>Vehicle</h3>
-                <p>59% CO₂</p>
+
+        <div class="emission-section">
+            <div class="bubble" style="animation-delay: 0.5s;">
+                <div class="bubble-content">
+                    <p class="percentage">40%</p>
+                    <p class="title">Vehicle Impact</p>
+                </div>
+            </div>
+            <div class="details">
+                <ul>
+                    <li>Vans emit 3-4x more CO₂ than scooters/motorcycles</li>
+                    <li>Fleet mix heavily influences overall emissions</li>
+                    <li>EV transition offers up to 59% emission reduction</li>
+                </ul>
             </div>
         </div>
-        
-        <div class="bubble" id="weather" style="width: 130px; height: 130px; background: rgba(128,128,128,0.7);">
-            <div class="bubble-content">
-                <h3>Weather</h3>
-                <p>25% CO₂</p>
+
+        <div class="emission-section">
+            <div class="bubble" style="animation-delay: 1s;">
+                <div class="bubble-content">
+                    <p class="percentage">25%</p>
+                    <p class="title">Weather Impact</p>
+                </div>
+            </div>
+            <div class="details">
+                <ul>
+                    <li>Bad weather slows deliveries → longer engine times</li>
+                    <li>Cold or rainy conditions increase fuel burn</li>
+                    <li>Adds up to 20-25% more CO₂ on average</li>
+                </ul>
             </div>
         </div>
     </div>
-
-    <div id="info-panel" class="info-panel"></div>
-
-    <script>
-        const bubbleData = {
-            traffic: {
-                title: "Traffic Impact",
-                details: "• Idle time increases fuel usage\n• Stop-and-go: +30% CO₂\n• Peak hours worsen impact"
-            },
-            vehicle: {
-                title: "Vehicle Impact",
-                details: "• Vans: 3-4x higher CO₂\n• Fleet composition crucial\n• EVs reduce emissions by 59%"
-            },
-            weather: {
-                title: "Weather Impact",
-                details: "• Extends delivery times\n• Increases fuel consumption\n• Adds 20-25% more CO₂"
-            }
-        };
-
-        const bubbles = document.querySelectorAll('.bubble');
-        const infoPanel = document.getElementById('info-panel');
-
-        bubbles.forEach(bubble => {
-            bubble.addEventListener('mouseover', (e) => {
-                const data = bubbleData[e.currentTarget.id];
-                infoPanel.innerHTML = `<h3>${data.title}</h3><p>${data.details}</p>`;
-                infoPanel.style.display = 'block';
-                infoPanel.style.left = e.pageX + 20 + 'px';
-                infoPanel.style.top = e.pageY + 'px';
-            });
-
-            bubble.addEventListener('mouseout', () => {
-                infoPanel.style.display = 'none';
-            });
-        });
-    </script>
 </body>
 </html>
