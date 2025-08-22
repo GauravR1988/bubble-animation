@@ -2,156 +2,178 @@
 <html>
 <head>
     <style>
-        /* Previous styles remain the same until .details */
-
-        .details {
-            background: rgba(255,255,255,0.1);
-            padding: 8px;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-            margin-top: 5px;
-            text-align: left;
-            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
-            height: 80px;
-            overflow-y: hidden;
-            font-size: 0.7em;
+        .container {
+            width: 500px;
+            height: 200px;
             position: relative;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            overflow: hidden;
         }
 
-        .details ul {
-            list-style-type: none;
-            padding: 0;
+        .main-bubble {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(128,128,128,0.8));
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.5);
+            z-index: 2;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: rotate 15s linear infinite;
+        }
+
+        .sub-bubble {
+            width: 40px;
+            height: 40px;
+            background: rgba(128,128,128,0.8);
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.6em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sub-bubble:hover {
+            transform: scale(1.2);
+            background: rgba(129, 199, 132, 0.8);
+        }
+
+        /* Traffic Orbits */
+        #traffic-orbit {
+            width: 180px;
+            height: 180px;
+        }
+
+        #traffic-idle { transform: translate(90px, 0); }
+        #traffic-stop { transform: translate(-90px, 0); }
+        #traffic-peak { transform: translate(0, 90px); }
+
+        /* Vehicle Orbits */
+        #vehicle-orbit {
+            width: 220px;
+            height: 220px;
+            animation-direction: reverse;
+        }
+
+        #vehicle-van { transform: translate(110px, 0); }
+        #vehicle-fleet { transform: translate(-110px, 0); }
+        #vehicle-ev { transform: translate(0, -110px); }
+
+        /* Weather Orbits */
+        #weather-orbit {
+            width: 260px;
+            height: 260px;
+        }
+
+        #weather-delay { transform: translate(130px, 0); }
+        #weather-fuel { transform: translate(-130px, 0); }
+        #weather-cold { transform: translate(0, 130px); }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .bubble-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        .percentage {
+            font-size: 1.2em;
+            font-weight: bold;
             margin: 0;
         }
 
-        .details li {
-            margin: 5px 0;
-            padding-left: 10px;
-            position: relative;
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideIn 0.5s forwards;
+        .title {
+            font-size: 0.8em;
+            margin: 2px 0;
         }
 
-        .details:hover li {
-            animation: pulse 2s infinite;
-        }
-
-        .details li:before {
-            content: "→";
+        .tooltip {
             position: absolute;
-            left: 0;
-            color: #4CAF50;
-            animation: glow 1.5s infinite;
-        }
-
-        /* Text animation keyframes */
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes glow {
-            0% { color: #4CAF50; }
-            50% { color: #81C784; }
-            100% { color: #4CAF50; }
-        }
-
-        /* Stagger the animations for list items */
-        .details li:nth-child(1) { animation-delay: 0.1s; }
-        .details li:nth-child(2) { animation-delay: 0.3s; }
-        .details li:nth-child(3) { animation-delay: 0.5s; }
-
-        /* Add gradient overlay */
-        .details:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 20px;
-            background: linear-gradient(transparent, rgba(26,26,26,0.9));
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7em;
             pointer-events: none;
-        }
-
-        /* Highlight effect on hover */
-        .details li:hover {
-            color: #81C784;
-            transform: translateX(5px);
-            transition: all 0.3s ease;
-        }
-
-        /* Typing animation for important numbers */
-        .highlight {
-            color: #81C784;
-            display: inline-block;
-            animation: typing 1s steps(10) infinite;
-        }
-
-        @keyframes typing {
-            0% { border-right: 2px solid transparent; }
-            50% { border-right: 2px solid #81C784; }
-            100% { border-right: 2px solid transparent; }
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="emission-section">
-            <div class="bubble" style="animation-delay: 0s;">
-                <div class="bubble-content">
-                    <p class="percentage">35%</p>
-                    <p class="title">Traffic</p>
-                </div>
-            </div>
-            <div class="details">
-                <ul>
-                    <li>Idling → <span class="highlight">↑ Fuel Use</span></li>
-                    <li>Stop-go: <span class="highlight">+30% CO₂</span></li>
-                    <li>Peak Impact <span class="highlight">Critical</span></li>
-                </ul>
+        <!-- Main Bubble -->
+        <div class="main-bubble">
+            <div class="bubble-content">
+                <p class="percentage">35%</p>
+                <p class="title">Traffic</p>
             </div>
         </div>
 
-        <div class="emission-section">
-            <div class="bubble" style="animation-delay: 0.5s;">
-                <div class="bubble-content">
-                    <p class="percentage">40%</p>
-                    <p class="title">Vehicle</p>
-                </div>
-            </div>
-            <div class="details">
-                <ul>
-                    <li>Vans: <span class="highlight">3-4x CO₂</span></li>
-                    <li>Fleet Mix <span class="highlight">Impact</span></li>
-                    <li>EVs: <span class="highlight">-59%</span></li>
-                </ul>
-            </div>
+        <!-- Traffic Orbit -->
+        <div class="orbit" id="traffic-orbit">
+            <div class="sub-bubble" id="traffic-idle" data-tooltip="Idling increases fuel">Idle</div>
+            <div class="sub-bubble" id="traffic-stop" data-tooltip="30% more CO₂">Stop</div>
+            <div class="sub-bubble" id="traffic-peak" data-tooltip="Peak impact">Peak</div>
         </div>
 
-        <div class="emission-section">
-            <div class="bubble" style="animation-delay: 1s;">
-                <div class="bubble-content">
-                    <p class="percentage">25%</p>
-                    <p class="title">Weather</p>
-                </div>
-            </div>
-            <div class="details">
-                <ul>
-                    <li>Delays <span class="highlight">↑ Time</span></li>
-                    <li>Fuel Use <span class="highlight">↑↑</span></li>
-                    <li><span class="highlight">+25%</span> CO₂</li>
-                </ul>
-            </div>
+        <!-- Vehicle Orbit -->
+        <div class="orbit" id="vehicle-orbit">
+            <div class="sub-bubble" id="vehicle-van" data-tooltip="3-4x more CO₂">Van</div>
+            <div class="sub-bubble" id="vehicle-fleet" data-tooltip="Fleet mix">Fleet</div>
+            <div class="sub-bubble" id="vehicle-ev" data-tooltip="59% reduction">EV</div>
         </div>
+
+        <!-- Weather Orbit -->
+        <div class="orbit" id="weather-orbit">
+            <div class="sub-bubble" id="weather-delay" data-tooltip="Longer times">Delay</div>
+            <div class="sub-bubble" id="weather-fuel" data-tooltip="More fuel">Fuel</div>
+            <div class="sub-bubble" id="weather-cold" data-tooltip="25% more CO₂">Cold</div>
+        </div>
+
+        <div class="tooltip"></div>
     </div>
+
+    <script>
+        const subBubbles = document.querySelectorAll('.sub-bubble');
+        const tooltip = document.querySelector('.tooltip');
+
+        subBubbles.forEach(bubble => {
+            bubble.addEventListener('mouseover', (e) => {
+                tooltip.style.opacity = '1';
+                tooltip.textContent = e.target.dataset.tooltip;
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY + 10 + 'px';
+            });
+
+            bubble.addEventListener('mouseout', () => {
+                tooltip.style.opacity = '0';
+            });
+        });
+    </script>
 </body>
 </html>
